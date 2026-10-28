@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-md-primary: #1D4ED8;
+    --color-md-surface: #F8FAFC;
+    --color-md-outline: #CBD5E1;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #0F172A;
+    background-color: #F8FAFC;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Material-style smooth scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F1F5F9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
+  }
+}
+
+/* Material elevation and surface utilities - strictly solid, no gradients */
+.m3-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.m3-card:hover {
+  box-shadow: 0 4px 8px -1px rgba(0, 0, 0, 0.08);
+}
+
+.m3-input {
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  color: #0F172A;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.m3-input:focus {
+  outline: none;
+  border-color: #1D4ED8;
+  box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.15);
+}
+
+.m3-btn-primary {
+  background-color: #1D4ED8;
+  color: #FFFFFF;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.m3-btn-primary:hover:not(:disabled) {
+  background-color: #1E40AF;
+  box-shadow: 0 2px 4px 0 rgba(29, 78, 216, 0.2);
+}
+
+.m3-btn-primary:active:not(:disabled) {
+  background-color: #1E3A8A;
+}
+
+.m3-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.m3-btn-secondary {
+  background-color: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.m3-btn-secondary:hover:not(:disabled) {
+  background-color: #E2E8F0;
+  color: #0F172A;
+}
+
+.m3-btn-outlined {
+  background-color: transparent;
+  color: #1D4ED8;
+  border: 1px solid #1D4ED8;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.15s ease;
+}
+
+.m3-btn-outlined:hover:not(:disabled) {
+  background-color: #EFF6FF;
+}
