@@ -1,4 +1,5 @@
 import { EvaluationResult } from '../types';
+import { marked } from 'marked';
 
 /**
  * Downloads a plain text file containing the perfected full-mark answer
@@ -123,8 +124,12 @@ export function printAnswerPdf(result: EvaluationResult): void {
       padding: 20px;
       font-size: 15px;
       line-height: 1.7;
-      white-space: pre-wrap;
     }
+    .full-mark-box ul, .full-mark-box ol { margin: 8px 0; padding-left: 24px; }
+    .full-mark-box li { margin-bottom: 5px; }
+    .full-mark-box p { margin: 0 0 10px 0; }
+    .full-mark-box p:last-child { margin-bottom: 0; }
+    .full-mark-box strong { font-weight: 700; color: #1e3a8a; }
     .point-card {
       border: 1px solid #e2e8f0;
       border-radius: 6px;
@@ -165,7 +170,7 @@ export function printAnswerPdf(result: EvaluationResult): void {
   <div class="box">${escapeHtml(result.question)}</div>
 
   <div class="section-title">Your Full-Mark Answer (Study Sheet)</div>
-  <div class="full-mark-box">${escapeHtml(result.fullMarkAnswer || result.studentAnswer)}</div>
+  <div class="full-mark-box">${marked.parse(result.fullMarkAnswer || result.studentAnswer)}</div>
 
   <div class="section-title">How Marks Were Given</div>
   ${result.parameters

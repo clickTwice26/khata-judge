@@ -27,6 +27,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { EvaluationResult } from '../types';
 import { computeWordDiff } from '../utils/diff';
 import { downloadAnswerText, printAnswerPdf } from '../utils/export';
+import { MarkdownContent } from './MarkdownContent';
 
 interface MuiScorecardProps {
   result: EvaluationResult;
@@ -116,9 +117,10 @@ export const MuiScorecard: React.FC<MuiScorecardProps> = ({
             {result.verdictSummary}
           </Typography>
 
-          <Typography variant="body2" color="text.secondary" sx={{ maxWidth: 600 }}>
-            {result.executiveCritique}
-          </Typography>
+          <MarkdownContent
+            content={result.executiveCritique}
+            sx={{ maxWidth: 650, fontSize: '0.875rem', color: 'text.secondary', '& p': { m: 0 } }}
+          />
         </Box>
 
         {/* Big Score Display */}
@@ -265,9 +267,15 @@ export const MuiScorecard: React.FC<MuiScorecardProps> = ({
                         <Typography variant="caption" sx={{ fontWeight: 700, color: '#15803d', display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
                           <CheckCircleOutlinedIcon sx={{ fontSize: 16 }} /> What you did well
                         </Typography>
-                        <Typography variant="body2" sx={{ color: (theme) => (theme.palette.mode === 'dark' ? '#86efac' : '#166534'), lineHeight: 1.55 }}>
-                          {point.strengths.join(' ')}
-                        </Typography>
+                        <MarkdownContent
+                          content={point.strengths.join(' ')}
+                          sx={{
+                            color: (theme) => (theme.palette.mode === 'dark' ? '#86efac' : '#166534'),
+                            fontSize: '0.875rem',
+                            lineHeight: 1.55,
+                            '& p': { m: 0 },
+                          }}
+                        />
                       </Box>
 
                       {/* What lost marks */}
@@ -283,17 +291,29 @@ export const MuiScorecard: React.FC<MuiScorecardProps> = ({
                         <Typography variant="caption" sx={{ fontWeight: 700, color: '#b45309', display: 'flex', alignItems: 'center', gap: 0.5, mb: 0.5 }}>
                           <LightbulbOutlinedIcon sx={{ fontSize: 16 }} /> What lost you marks
                         </Typography>
-                        <Typography variant="body2" sx={{ color: (theme) => (theme.palette.mode === 'dark' ? '#fde047' : '#92400e'), lineHeight: 1.55 }}>
-                          {point.flaws.join(' ')}
-                        </Typography>
+                        <MarkdownContent
+                          content={point.flaws.join(' ')}
+                          sx={{
+                            color: (theme) => (theme.palette.mode === 'dark' ? '#fde047' : '#92400e'),
+                            fontSize: '0.875rem',
+                            lineHeight: 1.55,
+                            '& p': { m: 0 },
+                          }}
+                        />
                       </Box>
                     </Box>
 
                     {/* How to get full marks */}
                     {point.recommendation && (
-                      <Typography variant="caption" color="text.secondary" sx={{ mt: 0.25, display: 'block' }}>
-                        <strong>How to get full marks:</strong> {point.recommendation}
-                      </Typography>
+                      <Box sx={{ mt: 0.5, display: 'flex', gap: 0.75, alignItems: 'baseline', flexWrap: 'wrap' }}>
+                        <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary' }}>
+                          How to get full marks:
+                        </Typography>
+                        <MarkdownContent
+                          content={point.recommendation}
+                          sx={{ fontSize: '0.75rem', color: 'text.secondary', display: 'inline', '& p': { m: 0, display: 'inline' } }}
+                        />
+                      </Box>
                     )}
                   </Paper>
                 );
@@ -362,18 +382,14 @@ export const MuiScorecard: React.FC<MuiScorecardProps> = ({
             <Paper
               variant="outlined"
               sx={{
-                p: { xs: 2.5, sm: 3 },
+                p: { xs: 2.5, sm: 3.5 },
                 borderRadius: 2,
                 bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#0f172a' : '#ffffff'),
                 border: '1.5px solid',
                 borderColor: 'primary.light',
-                fontSize: 16,
-                lineHeight: 1.72,
-                whiteSpace: 'pre-wrap',
-                color: 'text.primary',
               }}
             >
-              {result.fullMarkAnswer || result.studentAnswer}
+              <MarkdownContent content={result.fullMarkAnswer || result.studentAnswer} />
             </Paper>
           </Box>
         )}
@@ -490,18 +506,28 @@ export const MuiScorecard: React.FC<MuiScorecardProps> = ({
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, color: 'text.secondary' }}>
                     Your original answer
                   </Typography>
-                  <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.65 }}>
-                    {result.studentAnswer}
-                  </Typography>
+                  <MarkdownContent
+                    content={result.studentAnswer}
+                    sx={{ fontSize: '0.9375rem', lineHeight: 1.68 }}
+                  />
                 </Paper>
 
-                <Paper variant="outlined" sx={{ p: 2.5, borderRadius: 2, bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#0f172a' : '#f0fdf4'), borderColor: 'primary.light' }}>
+                <Paper
+                  variant="outlined"
+                  sx={{
+                    p: 2.5,
+                    borderRadius: 2,
+                    bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#0f172a' : '#f0fdf4'),
+                    borderColor: 'primary.light',
+                  }}
+                >
                   <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, color: 'primary.main' }}>
                     Full-mark improved version
                   </Typography>
-                  <Typography variant="body2" sx={{ whiteSpace: 'pre-wrap', lineHeight: 1.65 }}>
-                    {result.fullMarkAnswer || result.studentAnswer}
-                  </Typography>
+                  <MarkdownContent
+                    content={result.fullMarkAnswer || result.studentAnswer}
+                    sx={{ fontSize: '0.9375rem', lineHeight: 1.68 }}
+                  />
                 </Paper>
               </Box>
             )}
@@ -551,9 +577,10 @@ export const MuiScorecard: React.FC<MuiScorecardProps> = ({
                   >
                     {idx + 1}
                   </Box>
-                  <Typography variant="body2" sx={{ fontSize: '0.9375rem', lineHeight: 1.6 }}>
-                    {tip}
-                  </Typography>
+                  <MarkdownContent
+                    content={tip}
+                    sx={{ fontSize: '0.9375rem', lineHeight: 1.6, '& p': { m: 0 } }}
+                  />
                 </Paper>
               ))}
             </Box>
